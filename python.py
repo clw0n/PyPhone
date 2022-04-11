@@ -1,6 +1,27 @@
 import os, sys, platform, subprocess, socket
 from scapy import*
 from time import sleep
+from fastapi import File
+
+
+#############################################################
+#							    #				#.
+#	Pyphone is a free remote penetration    #
+#	testing tool powered by nmap. 		    #
+#   		     			                    #
+#   							    #
+#    							    #
+#   You can use the software and		    #								#/.°*
+#	modify it as you wish.					#					#/.°
+#							    #		#
+#											#
+#	How to use it :							#			#/°*
+#		pyphone [-b bind_address] [-sc]	            #					#/.*°
+#				[-wpa (handshake)]		    #
+#				[-conf (reconf)]            #
+#				[-sn (ipaddr)][-r record]   #
+#							    #				#
+#############################################################
 
 main_msg = """\n\033[0;35m
 		       ____$$$$$$$$$$
@@ -24,7 +45,7 @@ main_msg = """\n\033[0;35m
 		\033[0;35m\n"""
 
 
-
+#configure all of the messages
 bye_msg = "\033[1;31mShutting down... Goodbye ! ( ^_^)/ \033[1;31m"
 root_msg = "\033[1;31mPyPhone should be ran as root !\033[1;31m"
 err_msg = "\033[1;31mError ! Something went wrong !\033[1;31m"
@@ -93,21 +114,29 @@ def home():
 					 6) Exit""")
 			choice = raw_input(">>> ")
 			def scan():
-				global network_list
-				networks = subprocess.network("wlan", "network", "netsh", "")
-				networks.decode("ascii")
-				networks_list = []
-				networks.append(networks_list)
-				for elems in networks_list:
-					for j in elems:
-						SSID = elems[0]
-						Security = elems [1]
-						Bandwidth = elems[2]
-						ip_addr = elems[3]
-					print(ssid_banner)
-				#doesn't work #soon + no hidden network scanning yet
+				try:
+					global network_list
+					networks = subprocess.network("wlan", "network", "netsh", "")
+					networks.decode("ascii")
+					networks_list = []
+					networks.append(networks_list)
+					for elems in networks_list:
+						for j in elems:
+							SSID = elems[0]
+							Security = elems [1]
+							Bandwidth = elems[2]
+							ip_addr = elems[3]
+						print(ssid_banner)
+					#doesn't work #soon + no hidden network scanning yet
+				except InternalError:
+					sys.exit(err_msg)
 			def port_scan():
-				pass #using nmap to scan networks
+				#using nmap to scan networks && Open ports. 
+				try:
+					scan = os.system("nmap -A {prvaddrsrc}-255 ")
+				except InternalError:
+					sys.exit(err_msg)
+					
 			def sniff():
 				pass #use socket to listen to data
 			def wpa2_hs():
