@@ -173,3 +173,5 @@ def main():
 	except KeyboardInterrupt:
 		sleep(0.5)
 		sys.exit(msgs[2])
+if __name__ == "__main__":
+	main()
