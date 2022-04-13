@@ -54,97 +54,97 @@ def main():
 			print(box_lenght(len(sys.stdout())))
 		interface()
 
-			def scan():
-				try:
-					global network_list
-					networks = subprocess.network("wlan", "network", "netsh", "")
-					networks.decode("ascii")
-					networks_list = []
-					networks.append(networks_list)
-					for elems in networks_list:
-						for j in elems:
-							SSID = elems[0]
-							Security = elems [1]
-							Bandwidth = elems[2]
-							ip_addr = elems[3]
-						print(ssid_banner)
+		def scan():
+			try:
+				global network_list
+				networks = subprocess.network("wlan", "network", "netsh", "")
+				networks.decode("ascii")
+				networks_list = []
+				networks.append(networks_list)
+				for elems in networks_list:
+					for j in elems:
+						SSID = elems[0]
+						Security = elems [1]
+						Bandwidth = elems[2]
+						ip_addr = elems[3]
+					print(ssid_banner)
 					#doesn't work #soon + no hidden network scanning yet
+			except InternalError:
+				sys.exit(err_msg)
+		def port_scan():
+			#using nmap to scan networks && Open ports. 
+			sleep(0.2)
+			print("""
+				 1) Aggressive scan
+				 2) Stealth scan
+				 3) Quick scan
+				 4) Firewall evasion & MTU""")
+			choice = raw_input(">>> ")
+			if choice == 1:
+				scan = os.system(f"nmap -A {prvaddrsrc}-255 -vv | grep -i 'Scan report for' 'Host is up'>> scan.txt ")
+				path = os.getcwd()
+				os.system(f"{path}/scan")
+				print(f"Scan report will be sent to {path}.") 
+			elif choice ==2:
+				scan = os.system(f"nmap -Pn {prvaddrsrc}-255 -vv | grep -i 'Scan report for' 'Host is up'>> scan.txt ")
+			elif choice ==3:
+				scan = os.system(f"nmap -F {prvaddrsrc}-255 -vv | grep -i 'Scan report for' 'Host is up'>> scan.txt ")
+			elif choice ==4:
+				pass
+				#implementation soon
+
+		def sniff():
+			pass #use socket to sniff data
+		def wifi_cracking(network_list):
+			def wep():
+				pass
+			def wpa2():
+				pass
+			def wpa3():
+				pass
+			for networks in network_list:
+				for security in network_list:
+					if security == "WEP":
+						wep()
+					elif security == "WPA2":
+						wpa2()
+					elif security == "WPA3":
+						wpa3()
+					else:
+						sys.exit(msgs(-1))
+					# detect security type from network list, then use function for appropriate security type
+		def bg_record():
+			if platform.system() not in supported_devices:
+				sys.exit(err_msg)
+				try:
+					class voIP:
+						def __init__(self, audio, running = False):
+							pass
+							#then configure voip server (over ngrok ??) --listener / sender
+							#return true or false according to connectivity of voip server
+						def voIP_(self):
+							pass #**
+
+						def run(self):
+							try:
+								pass
+							except KeyboardInterrupt:
+								sys.exit(msgs(1))
+
+
+						run()
 				except InternalError:
 					sys.exit(err_msg)
-			def port_scan():
-				#using nmap to scan networks && Open ports. 
-				sleep(0.2)
-				print("""
-					 1) Aggressive scan
-					 2) Stealth scan
-					 3) Quick scan
-					 4) Firewall evasion & MTU""")
-				choice = raw_input(">>> ")
-				if choice == 1:
-					scan = os.system(f"nmap -A {prvaddrsrc}-255 -vv | grep -i 'Scan report for' 'Host is up'>> scan.txt ")
+				
+				while not voip_conf() == False:
 					path = os.getcwd()
-					os.system(f"{path}/scan")
-					print(f"Scan report will be sent to {path}.") 
-				elif choice ==2:
-					scan = os.system(f"nmap -Pn {prvaddrsrc}-255 -vv | grep -i 'Scan report for' 'Host is up'>> scan.txt ")
-				elif choice ==3:
-					scan = os.system(f"nmap -F {prvaddrsrc}-255 -vv | grep -i 'Scan report for' 'Host is up'>> scan.txt ")
-				elif choice ==4:
+					#send mp3 file in /audio file
+					#check if audio file exists
+					#if not create one
 					pass
-					#implementation soon
-
-			def sniff():
-				pass #use socket to sniff data
-			def wifi_cracking(network_list):
-				for networks in network_list:
-					for security in network_list:
-						if security == "WEP":
-							pass
-						elif security == "WPA2":
-							pass
-						elif security == "WPA3":
-							pass
-						else:
-							sys.exit(msgs(-1))
-						# detect security type from network list, then use function for appropriate security type
-				def wep():
-					pass
-				def wpa2():
-					pass
-				def wpa3():
-					pass
-			def bg_record():
-				if platform.system() not in supported_devices:
-					sys.exit(err_msg)
-					try:
-						class voIP:
-							def __init__(self, audio, running = False):
-								pass
-								#then configure voip server (over ngrok ??) --listener / sender
-								#return true or false according to connectivity of voip server
-							def voIP functions(self):
-								pass #**
-
-							def run(self):
-								try:
-									pass
-								except KeyboardInterrupt:
-									sys.exit(msgs(1))
-
-
-							run()
-					except InternalError:
-						sys.exit(err_msg)
-					
-					while not voip_conf() == False:
-						path = os.getcwd()
-						#send mp3 file in /audio file
-						#check if audio file exists
-						#if not create one
-						pass
-					    #toggles microphone on bounded phone from (recording app). Send data live through the voip server, might need rooted phone to do this.
-					    #display just the "audio_msg" variable , while only waiting for user interrupting with ctrl+c or error with phone
-					    #when ctrl+c pressed or connection ends, send the recorded audio as a file in the current active path.
+				    #toggles microphone on bounded phone from (recording app). Send data live through the voip server, might need rooted phone to do this.
+				    #display just the "audio_msg" variable , while only waiting for user interrupting with ctrl+c or error with phone
+				    #when ctrl+c pressed or connection ends, send the recorded audio as a file in the current active path.
 
 		def options():
 			print("""	 
@@ -164,7 +164,7 @@ def main():
 				sniff()
 			elif choice== 4:
 				wifi_cracking()
-		 	elif choice == 5:
+			elif choice == 5:
 				bg_record()
 			elif choice == 6:
 				sleep(1)
