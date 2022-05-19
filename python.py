@@ -4,7 +4,7 @@
 from banners import computer_conf, box_lenght, lines_box
 from headers import rand_header
 from messages import msgs
-import os, sys, random, platforms, subprocess
+import os, sys, random, platforms, subprocess, socket
 from time import sleep
 
 #supported devices bg function
@@ -57,7 +57,7 @@ def main():
 		def scan():
 			try:
 				global network_list
-				networks = subprocess.network("wlan", "network", "netsh", "")
+				networks = subprocess.network("wlan", "network", "netsh")
 				networks.decode("ascii")
 				networks_list = []
 				networks.append(networks_list)
